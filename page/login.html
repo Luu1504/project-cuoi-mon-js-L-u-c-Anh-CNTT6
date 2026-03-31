@@ -4,16 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index1</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <title>Rikkei Cinema - Đăng Nhập</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="/css/login.css">
+</head>
 
 <body>
     <header class="navbar">
         <div class="logo">
-            <span class="logoIcon"><img src="/asset/icon/Container.png" alt="logo"></span><span
-                class="wordIcon1"><strong>Rikkei</strong></span><span class="wordIcon2"><strong>Cinema</strong></span>
+            <span class="logoIcon"><img src="/asset/icon/Container.png" alt="logo"></span>
+            <span class="wordIcon1"><strong>Rikkei</strong></span>
+            <span class="wordIcon2"><strong>Cinema</strong></span>
         </div>
         <nav>
             <ul class="toolBar">
@@ -26,6 +31,7 @@
             </ul>
         </nav>
     </header>
+
     <main class="loginContainer">
         <div class="loginCard">
             <div class="popcornImg">
@@ -46,15 +52,14 @@
                 <div class="input">
                     <label>Mật khẩu</label>
                     <div>
-                        <input id="password" type="text" placeholder="Nhập mật khẩu của bạn">
+                        <input id="password" type="password" placeholder="Nhập mật khẩu của bạn">
                         <span id="errorPassword"></span>
                     </div>
                 </div>
 
-
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox">Ghi nhớ đăng nhập
+                        <input type="checkbox" id="rememberMe">Ghi nhớ đăng nhập
                     </label>
                     <a href="">Quên mật khẩu?</a>
                 </div>
@@ -64,24 +69,15 @@
                 </div>
 
                 <div>
-                    <p class="noLogin">Bạn chưa có tài khoản?<a class="register" href="/page/register.html"><strong>Đăng
-                                ký ngay</strong></a></p>
+                    <p class="noLogin">Bạn chưa có tài khoản?
+                        <a class="register" href="/page/register.html"><strong>Đăng ký ngay</strong></a>
+                    </p>
                 </div>
-
-
             </form>
         </div>
     </main>
 
-    <div style="padding: 50px; text-align: center;">
-        <h1 style="color: white;">Test Toast Messages</h1>
-        <button onclick="showSuccess()">Thành công</button>
-        <button onclick="showUpdate()">Đã cập nhật</button>
-        <button onclick="showError()">Thất bại</button>
-        <button onclick="showDelete()">Đã xóa</button>
-    </div>
-
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/js/login.js"></script>
 </body>
 

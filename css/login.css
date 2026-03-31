@@ -189,17 +189,21 @@ h2 {
 
 
 .toastify {
+   /* Quan trọng nhất: Giúp thông báo không đẩy giao diện */
+   position: fixed !important;
+
+   /* Các thuộc tính khác giữ nguyên */
    padding: 12px 20px;
    color: #ffffff;
    display: flex;
    align-items: center;
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
    border-radius: 8px;
-   font-family: 'Segoe UI', sans-serif;
    background: #1e2532 !important;
    opacity: 1;
    max-width: 400px;
-   position: relative;
+   z-index: 9999;
+   /* Đảm bảo hiện trên cùng */
    border-left: 6px solid transparent;
 }
 
@@ -207,12 +211,15 @@ h2 {
    display: flex;
    flex-direction: column;
    margin-left: 10px;
+   text-align: left;
+   /* Đảm bảo chữ căn trái */
 }
 
 .toast-title {
    font-weight: bold;
    font-size: 15px;
    margin-bottom: 4px;
+   color: white;
 }
 
 .toast-message {
@@ -221,7 +228,7 @@ h2 {
 }
 
 .toast-icon {
-   font-size: 20px;
+   font-size: 22px;
 }
 
 .toast-success {
@@ -247,18 +254,11 @@ h2 {
    color: #6c757d;
 }
 
-.toast-error {
-   border-left-color: #dc3545 !important;
-}
-
-.toast-error .toast-icon {
-   color: #dc3545;
-}
-
-.toastify .toast-close {
-   position: absolute;
-   top: 8px;
-   right: 10px;
-   color: #6c757d;
-   opacity: 0.8;
+/* Hiển thị lỗi dưới input màu đỏ */
+#errorEmail,
+#errorPassword {
+   color: #ff4d4d;
+   font-size: 12px;
+   margin-top: 5px;
+   display: block;
 }
