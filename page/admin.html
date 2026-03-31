@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Cinema Admin - Rikkei Cinema</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+   <div class="sidebar">
+      <h2 class="logo"><i class="fa-solid fa-clapperboard"></i> Rikkei <span>Cinema</span></h2>
+      <div class="menu">
+         <div class="item active"><i class="fa-solid fa-film"></i> Quản lý phim</div>
+         <div class="item"><i class="fa-solid fa-ticket"></i> Quản lý vé</div>
+      </div>
+      <div class="user">
+         <img src="https://via.placeholder.com/40" class="avatar">
+         <div class="user-info">
+            <b>Admin Quản Lý</b><br>
+            <small>LQTuan@rikkei.edu.vn</small>
+         </div>
+         <i class="fa-solid fa-right-from-bracket logout" id="logoutBtn"></i>
+      </div>
+   </div>
+
+   <div class="main">
+      <div class="header">
+         <div>
+            <h1>Quản lý danh sách phim</h1>
+            <p>Xem, chỉnh sửa và quản lý tất cả phim hiện có trên hệ thống.</p>
+         </div>
+         <div class="actions">
+            <div class="search-box">
+               <i class="fa-solid fa-magnifying-glass"></i>
+               <input type="text" id="searchInput" placeholder="Tìm tên phim...">
+            </div>
+            <button class="btn-red">+ Thêm phim mới</button>
+         </div>
+      </div>
+
+      <div class="tabs">
+         <button class="t-btn active" data-status="all">Tất cả (24)</button>
+         <button class="t-btn" data-status="dang-chieu">Đang chiếu (8)</button>
+         <button class="t-btn" data-status="sap-chieu">Sắp chiếu (5)</button>
+         <button class="t-btn" data-status="da-chieu">Đã chiếu (11)</button>
+      </div>
+
+      <div class="card">
+         <table>
+            <thead>
+               <tr>
+                  <th>ẢNH BÌA</th>
+                  <th>TÊN PHIM</th>
+                  <th>THỂ LOẠI</th>
+                  <th>THỜI LƯỢNG</th>
+                  <th>NGÀY KHỞI CHIẾU</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>THAO TÁC</th>
+               </tr>
+            </thead>
+            <tbody id="movieTableBody">
+               <tr data-status="dang-chieu">
+                  <td><img src="https://via.placeholder.com/50x70" class="poster"></td>
+                  <td><b>Dune: Part Two</b><br><small>Hành tinh cát: Phần hai</small></td>
+                  <td><span class="tag">Hành động</span><br><span class="tag">Viễn tưởng</span></td>
+                  <td>166 phút</td>
+                  <td>01/03/2024</td>
+                  <td><span class="st st-green">Đang chiếu</span></td>
+                  <td class="icon-btns"><i class="fa-solid fa-pen"></i> <i class="fa-solid fa-circle-xmark"></i></td>
+               </tr>
+               <tr data-status="sap-chieu">
+                  <td><img src="https://via.placeholder.com/50x70" class="poster"></td>
+                  <td><b>Godzilla x Kong</b><br><small>Đế Chế Mới</small></td>
+                  <td><span class="tag">Hành động</span></td>
+                  <td>115 phút</td>
+                  <td>29/03/2024</td>
+                  <td><span class="st st-yellow">Sắp chiếu</span></td>
+                  <td class="icon-btns"><i class="fa-solid fa-pen"></i> <i class="fa-solid fa-circle-xmark"></i></td>
+               </tr>
+            </tbody>
+         </table>
+
+         <div class="pagination">
+            <span>Hiển thị 1-5 trên 24 phim</span>
+            <div class="pages">
+               <button><i class="fa-solid fa-chevron-left"></i></button>
+               <button class="active">1</button>
+               <button>2</button>
+               <button>3</button>
+               <span>...</span>
+               <button>5</button>
+               <button><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script src="/js/admin.js"></script>
+</body>
+
+</html>

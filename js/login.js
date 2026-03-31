@@ -134,8 +134,13 @@ loginForm.addEventListener("submit", (e) => {
    errorEmail.textContent = "";
    errorPassword.textContent = "";
 
+   
    setTimeout(() => {
-      window.location.href = "index.html";
+      if (findUser.role === "admin") {
+         window.location = "admin.html"
+      } else if (findUser.role === "user") {
+         window.location = "index.html"
+      }
    }, 2000);
 
 });

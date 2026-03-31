@@ -1,0 +1,253 @@
+body {
+   margin: 0;
+   display: flex;
+   font-family: sans-serif;
+   background: #1a0b0b;
+   color: white;
+}
+
+.sidebar {
+   width: 250px;
+   height: 100vh;
+   background: #140808;
+   border-right: 1px solid #332222;
+   display: flex;
+   flex-direction: column;
+   position: sticky;
+   top: 0;
+}
+
+.logo {
+   color: #e50914;
+   padding: 20px;
+   font-size: 1.2rem;
+}
+
+.logo span {
+   color: white;
+}
+
+.menu {
+   flex: 1;
+}
+
+.item {
+   padding: 15px 20px;
+   color: #888;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.item.active {
+   color: #e50914;
+   background: #241414;
+   border-left: 3px solid #e50914;
+}
+
+.user {
+   padding: 20px;
+   border-top: 1px solid #332222;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.avatar {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   object-fit: cover;
+   background: #333;
+}
+
+.user-info {
+   font-size: 12px;
+   flex: 1;
+}
+
+.logout {
+   color: #666;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+.logout:hover {
+   color: #e50914;
+}
+
+.main {
+   flex: 1;
+   padding: 30px;
+}
+
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 25px;
+}
+
+.header h1 {
+   margin: 0;
+   font-size: 1.5rem;
+}
+
+.header p {
+   color: #888;
+   margin: 5px 0 0;
+   font-size: 0.9rem;
+}
+
+.search-box {
+   position: relative;
+   display: inline-block;
+}
+
+.search-box i {
+   position: absolute;
+   left: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: #666;
+}
+
+.search-box input {
+   background: #241414;
+   border: 1px solid #332222;
+   color: white;
+   padding: 10px 10px 10px 35px;
+   border-radius: 5px;
+   width: 200px;
+}
+
+.btn-red {
+   background: #e50914;
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-weight: bold;
+}
+
+.tabs {
+   margin-bottom: 20px;
+}
+
+.t-btn {
+   background: #241414;
+   border: 1px solid #332222;
+   color: #888;
+   padding: 8px 15px;
+   border-radius: 20px;
+   cursor: pointer;
+   margin-right: 5px;
+}
+
+.t-btn.active {
+   background: #3d2b2b;
+   color: white;
+}
+
+.card {
+   background: #241414;
+   padding: 20px;
+   border-radius: 10px;
+   border: 1px solid #332222;
+}
+
+table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+th {
+   text-align: left;
+   color: #666;
+   font-size: 11px;
+   padding: 10px;
+   border-bottom: 1px solid #332222;
+}
+
+td {
+   padding: 15px 10px;
+   border-bottom: 1px solid #332222;
+   font-size: 0.9rem;
+}
+
+.poster {
+   width: 45px;
+   height: 65px;
+   border-radius: 4px;
+   object-fit: cover;
+}
+
+.tag {
+   background: #332222;
+   padding: 2px 6px;
+   border-radius: 4px;
+   font-size: 10px;
+   color: #aaa;
+   margin-right: 4px;
+}
+
+small {
+   color: #666;
+}
+
+.st {
+   padding: 3px 10px;
+   border-radius: 15px;
+   font-size: 11px;
+   border: 1px solid;
+}
+
+.st-green {
+   color: #2ecc71;
+   border-color: #2ecc71;
+   background: rgba(46, 204, 113, 0.1);
+}
+
+.st-yellow {
+   color: #f1c40f;
+   border-color: #f1c40f;
+   background: rgba(241, 196, 15, 0.1);
+}
+
+.icon-btns i {
+   color: #666;
+   margin-right: 10px;
+   cursor: pointer;
+   font-size: 16px;
+}
+
+.pagination {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+   color: #888;
+   font-size: 0.8rem;
+}
+
+.pages {
+   display: flex;
+   gap: 5px;
+}
+
+.pages button {
+   background: none;
+   border: 1px solid #332222;
+   color: #888;
+   width: 30px;
+   height: 30px;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.pages button.active {
+   border-color: #e50914;
+   color: #e50914;
+}
