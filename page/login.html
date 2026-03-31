@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index1</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <span class="logoIcon"><img src="/asset/icon/Container.png" alt="logo"></span><span
+                class="wordIcon1"><strong>Rikkei</strong></span><span class="wordIcon2"><strong>Cinema</strong></span>
+        </div>
+        <nav>
+            <ul class="toolBar">
+                <li><a href="/page/menu.html">Trang Chủ</a></li>
+                <li><a href="#">Thông Tin</a></li>
+                <li><a href="#">Liên Hệ</a></li>
+                <li><a href="/page/login.html">
+                        <button class="btn-login">Đăng Nhập</button>
+                    </a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="loginContainer">
+        <div class="loginCard">
+            <div class="popcornImg">
+                <img src="/asset/image/Background.png" alt="popCornImg">
+            </div>
+
+            <h2>Chào mừng quay trở lại</h2>
+
+            <form id="form">
+                <div class="input">
+                    <label>Email</label>
+                    <div>
+                        <input id="email" type="text" placeholder="Nhập email của bạn">
+                        <span id="errorEmail"></span>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <label>Mật khẩu</label>
+                    <div>
+                        <input id="password" type="text" placeholder="Nhập mật khẩu của bạn">
+                        <span id="errorPassword"></span>
+                    </div>
+                </div>
+
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">Ghi nhớ đăng nhập
+                    </label>
+                    <a href="">Quên mật khẩu?</a>
+                </div>
+
+                <div>
+                    <button class="submitBtn" type="submit">Đăng nhập</button>
+                </div>
+
+                <div>
+                    <p class="noLogin">Bạn chưa có tài khoản?<a class="register" href="/page/register.html"><strong>Đăng
+                                ký ngay</strong></a></p>
+                </div>
+
+
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
