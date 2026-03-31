@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index1</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <link rel="stylesheet" href="/css/login.css">
 
@@ -72,6 +72,15 @@
             </form>
         </div>
     </main>
+
+    <div style="padding: 50px; text-align: center;">
+        <h1 style="color: white;">Test Toast Messages</h1>
+        <button onclick="showSuccess()">Thành công</button>
+        <button onclick="showUpdate()">Đã cập nhật</button>
+        <button onclick="showError()">Thất bại</button>
+        <button onclick="showDelete()">Đã xóa</button>
+    </div>
+
 
     <script src="/js/login.js"></script>
 </body>

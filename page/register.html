@@ -5,77 +5,70 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="/css/register.css">
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
    <title>Rikkei Cinema - Đăng Ký</title>
 </head>
 
 <body>
-   <header class="navbar">
-      <div class="logo">
-         <span><img src="/asset/icon/Container.png" alt=""></span>
-         <span class="wordIcon1"><strong>Rikkei</strong></span>
-         <span class="wordIcon2"><strong>Cinema</strong></span>
-      </div>
-      <nav>
-         <ul class="toolBar">
-            <li><a href="/page/menu.html">Trang Chủ</a></li>
-            <li><a href="#">Thông Tin</a></li>
-            <li><a href="#">Liên Hệ</a></li>
-            <li><a href="/page/login.html">
-                  <button class="btn-login">Đăng Nhập</button>
-               </a></li>
-         </ul>
-      </nav>
-   </header>
+   <div class="img">
+      <header class="navbar">
+         <div class="logo">
+            <span><img src="/asset/icon/Container.png" alt=""></span>
+            <span class="wordIcon1"><strong>Rikkei</strong></span>
+            <span class="wordIcon2"><strong>Cinema</strong></span>
+         </div>
+         <nav>
+            <ul class="toolBar">
+               <li><a href="/page/menu.html">Trang Chủ</a></li>
+               <li><a href="#">Thông Tin</a></li>
+               <li><a href="#">Liên Hệ</a></li>
+               <li><a href="/page/login.html"><button class="btn-login">Đăng Nhập</button></a></li>
+            </ul>
+         </nav>
+      </header>
 
-   <main class="loginContainer">
-      <div class="loginCard">
-         <h2>Tạo tài khoản mới</h2>
-         <p>Đăng ký để đặt vé xem phim ngay hôm nay</p>
+      <main class="loginContainer">
+         <div class="loginCard">
+            <h2>Tạo tài khoản mới</h2>
+            <p>Đăng ký để đặt vé xem phim ngay hôm nay</p>
 
-         <form id="form" class="formInput">
-            <div class="input">
-               <label>Họ và tên</label>
-               <input id="name" type="text" placeholder="Nhập tên của bạn">
-               <span id="errorName"></span>
-            </div>
+            <form id="form" class="formInput">
+               <div class="input">
+                  <label>Họ và tên</label>
+                  <input id="name" type="text" placeholder="Nhập tên của bạn">
+                  <span id="errorName"></span>
+               </div>
+               <div class="input">
+                  <label>Email</label>
+                  <input id="email" type="text" placeholder="Nhập email của bạn">
+                  <span id="errorEmail"></span>
+               </div>
+               <div class="input">
+                  <label>Mật khẩu</label>
+                  <input id="password" type="password" placeholder="********">
+                  <span id="errorPassword"></span>
+               </div>
+               <div class="input">
+                  <label>Xác nhận mật khẩu của bạn</label>
+                  <input id="checkPassword" type="password" placeholder="********">
+                  <span id="confirmPassword"></span>
+               </div>
+               <div class="checkbox">
+                  <label><input type="checkbox" id="agreeCheck"></label>
+                  <span>Tôi đồng ý với <a>điều khoản sử dụng</a> và chính sách bảo mật của CineEdu.</span>
+               </div>
+               <button type="submit" class="submitBtn">Đăng ký</button>
+               <p class="noLogin">Đã có tài khoản <a class="register" href="/page/login.html"><strong>Đăng nhập
+                        ngay</strong></a></p>
+            </form>
+         </div>
+      </main>
+   </div>
 
-            <div class="input">
-               <label>Email</label>
-               <input id="email" type="text" placeholder="Nhập email của bạn">
-               <span id="errorEmail"></span>
-            </div>
-
-            <div class="input">
-               <label>Mật khẩu</label>
-               <input id="password" type="password" placeholder="********">
-               <span id="errorPassword"></span>
-            </div>
-
-            <div class="input">
-               <label>Xác nhận mật khẩu của bạn</label>
-               <input id="checkPassword" type="password" placeholder="********">
-               <span id="confirmPassword"></span>
-            </div>
-
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> Tôi đồng ý với <a>điều khoản sử dụng</a> và chính sách bảo
-                  mật của CineEdu.
-               </label>
-            </div>
-
-            <button type="submit" class="submitBtn">Đăng nhập</button>
-
-            <p class="noLogin">
-               Đã có tài khoản
-               <a class="register" href="/page/login.html"><strong>Đăng nhập ngay</strong></a>
-            </p>
-         </form>
-      </div>
-   </main>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
    <script src="/js/register.js"></script>
 </body>
 

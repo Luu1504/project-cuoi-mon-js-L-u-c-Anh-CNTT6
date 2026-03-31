@@ -353,3 +353,97 @@ footer {
    color: #555;
    font-size: 13px;
 }
+
+/* Ghi đè style mặc định của Toastify */
+.toastify {
+   padding: 12px 20px;
+   color: #ffffff;
+   display: flex;
+   align-items: center;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+   border-radius: 8px;
+   /* Bo góc nhẹ */
+   font-family: 'Segoe UI', sans-serif;
+   background: #1e2532 !important;
+   /* Màu nền Dark Mode */
+   opacity: 1;
+   max-width: 400px;
+   position: relative;
+   /* Hiệu ứng thanh màu bên trái */
+   border-left: 6px solid transparent;
+}
+
+.toastify {
+   padding: 12px 20px;
+   color: #ffffff;
+   display: flex;
+   align-items: center;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+   border-radius: 8px;
+   font-family: 'Segoe UI', sans-serif;
+   background: #1e2532 !important;
+   opacity: 1;
+   max-width: 400px;
+   position: relative;
+   border-left: 6px solid transparent;
+}
+
+.toast-content {
+   display: flex;
+   flex-direction: column;
+   margin-left: 10px;
+}
+
+.toast-title {
+   font-weight: bold;
+   font-size: 15px;
+   margin-bottom: 4px;
+}
+
+.toast-message {
+   font-size: 13px;
+   color: #a0a0a0;
+}
+
+.toast-icon {
+   font-size: 20px;
+}
+
+.toast-success {
+   border-left-color: #28a745 !important;
+}
+
+.toast-success .toast-icon {
+   color: #28a745;
+}
+
+.toast-error {
+   border-left-color: #dc3545 !important;
+}
+
+.toast-error .toast-icon {
+   color: #dc3545;
+}
+
+.toastify .toast-close {
+   position: absolute;
+   top: 8px;
+   right: 10px;
+   color: #6c757d;
+}
+
+.toast-error {
+   border-left-color: #dc3545 !important;
+}
+
+.toast-error .toast-icon {
+   color: #dc3545;
+}
+
+.toastify .toast-close {
+   position: absolute;
+   top: 8px;
+   right: 10px;
+   color: #6c757d;
+   opacity: 0.8;
+}
