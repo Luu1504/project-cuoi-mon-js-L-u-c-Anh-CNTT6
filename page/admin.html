@@ -16,7 +16,7 @@
          <div class="item"><i class="fa-solid fa-ticket"></i> Quản lý vé</div>
       </div>
       <div class="user">
-         <img src="https://via.placeholder.com/40" class="avatar">
+         <img src="/asset/image/Gemini_Generated_Image_vzblvtvzblvtvzbl.png" class="avatar">
          <div class="user-info">
             <b>Admin Quản Lý</b><br>
             <small>LQTuan@rikkei.edu.vn</small>
@@ -36,15 +36,15 @@
                <i class="fa-solid fa-magnifying-glass"></i>
                <input type="text" id="searchInput" placeholder="Tìm tên phim...">
             </div>
-            <button class="btn-red">+ Thêm phim mới</button>
+            <button id="btnRed" class="btn-red">+ Thêm phim mới</button>
          </div>
       </div>
 
-      <div class="tabs">
-         <button class="t-btn active" data-status="all">Tất cả (24)</button>
-         <button class="t-btn" data-status="dang-chieu">Đang chiếu (8)</button>
-         <button class="t-btn" data-status="sap-chieu">Sắp chiếu (5)</button>
-         <button class="t-btn" data-status="da-chieu">Đã chiếu (11)</button>
+      <div id="tabs" class="tabs">
+         <button id="showAllBtn" class="t-btn active" data-status="all">Tất cả</button>
+         <button id="isShowingBtn" class="t-btn" data-status="dang-chieu">Đang chiếu</button>
+         <button id="comingSoonBtn" class="t-btn" data-status="sap-chieu">Sắp chiếu</button>
+         <button id="screenedBtn" class="t-btn" data-status="da-chieu">Đã chiếu</button>
       </div>
 
       <div class="card">
@@ -61,24 +61,7 @@
                </tr>
             </thead>
             <tbody id="movieTableBody">
-               <tr data-status="dang-chieu">
-                  <td><img src="https://via.placeholder.com/50x70" class="poster"></td>
-                  <td><b>Dune: Part Two</b><br><small>Hành tinh cát: Phần hai</small></td>
-                  <td><span class="tag">Hành động</span><br><span class="tag">Viễn tưởng</span></td>
-                  <td>166 phút</td>
-                  <td>01/03/2024</td>
-                  <td><span class="st st-green">Đang chiếu</span></td>
-                  <td class="icon-btns"><i class="fa-solid fa-pen"></i> <i class="fa-solid fa-circle-xmark"></i></td>
-               </tr>
-               <tr data-status="sap-chieu">
-                  <td><img src="https://via.placeholder.com/50x70" class="poster"></td>
-                  <td><b>Godzilla x Kong</b><br><small>Đế Chế Mới</small></td>
-                  <td><span class="tag">Hành động</span></td>
-                  <td>115 phút</td>
-                  <td>29/03/2024</td>
-                  <td><span class="st st-yellow">Sắp chiếu</span></td>
-                  <td class="icon-btns"><i class="fa-solid fa-pen"></i> <i class="fa-solid fa-circle-xmark"></i></td>
-               </tr>
+
             </tbody>
          </table>
 
@@ -96,6 +79,26 @@
          </div>
       </div>
    </div>
+
+
+   <div id="overlayClass" class="overlay">
+      <div class="modal">
+         <div class="imgModal">
+            <img src="/asset/icon/Warning Icon.png">
+         </div>
+         <div class="modal-header">
+            <h2>Xác nhận xóa phim</h2>
+         </div>
+         <div class="modal-content">
+            <p>Bạn có chắc chắn muốn xóa phim không? Hành động này không thể hoàn tác</p>
+         </div>
+         <div class="modal-footer">
+            <button id="cancelBtn" class="abort">Hủy</button>
+            <button id="confirmDeleteBtn" class="deleteNow">Xóa ngay</button>
+         </div>
+      </div>
+   </div>
+
    <script src="/js/admin.js"></script>
 </body>
 

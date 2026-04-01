@@ -32,19 +32,30 @@ if (usersData.length === 0) {
          "isActive": false
       }
    ];
+   localStorage.setItem("users", JSON.stringify(usersData));
 }
+
+let emailInput = document.getElementById("email");
+let passwordInput = document.getElementById("password");
+
+let errorEmail = document.getElementById("errorEmail");
+let errorPassword = document.getElementById("errorPassword");
+
+let checkBox = document.getElementById("rememberMe");
+
+let loginForm = document.getElementById("form");
 
 
 window.onload = () => {
-   const savedEmail = localStorage.getItem("rememberedEmail");
-   const savedPassword = localStorage.getItem("rememberedPassword");
-
-   if (savedEmail && savedPassword) {
-      emailInput.value = savedEmail;
-      passwordInput.value = savedPassword;
-      rememberMe.checked = true;
+   const saveEmail = localStorage.getItem("rememberEmail");
+   const savePassword = localStorage.getItem("rememberPassword");
+   if (saveEmail && savePassword) {
+      emailInput.value = saveEmail;
+      passwordInput.value = passwordInput;
+      checkBox.checked = true;
    }
-};
+}
+
 
 function showToast(title, message, type = "success") {
    let icon = type === "success"
@@ -71,15 +82,6 @@ function showToast(title, message, type = "success") {
    }).showToast();
 }
 
-let loginForm = document.getElementById("form");
-let emailInput = document.getElementById("email");
-let passwordInput = document.getElementById("password");
-
-let checkBox = document.getElementById("rememberMe");
-
-let errorEmail = document.getElementById("errorEmail");
-let errorPassword = document.getElementById("errorPassword");
-
 
 loginForm.addEventListener("submit", (e) => {
    e.preventDefault();
@@ -87,61 +89,46 @@ loginForm.addEventListener("submit", (e) => {
    let authenticEmail = emailInput.value.trim();
    let authenticPassword = passwordInput.value.trim();
 
-
    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   let findUser = usersData.find(s => s.email === authenticEmail);
+   let findUser = usersData.find(s => s.email.toLowerCase() === authenticEmail.toLowerCase());
+   if (authenticEmail === "") {
+      errorEmail.textContent = "Email không được để trống";
+      showToast("Thất bại", "Email không được để trống", "error");
+      return;
+   }
    if (!findUser) {
-      errorEmail.textContent = "Không tìm thấy Email"
-      showToast("Thất bại", "Không tìm thấy email này!", "error");
+      errorEmail.textContent = "Email không tồn tại";
+      showToast("Thất bại", "Email không tồn tại", "error");
       return;
    }
    if (!emailRegex.test(authenticEmail)) {
       errorEmail.textContent = "Email không đúng định dạng";
-      showToast("Thất bại", "Định dạng Email không hợp lệ!", "error");
+      showToast("Thất bại", "Email bị lỗi định dạng", "error");
       return;
    }
-   if (authenticEmail === "") {
-      errorEmail.textContent = "Email không được để trống";
-      showToast("Thất bại", "Email không được để trống!", "error");
-      return;
-   }
+
    if (findUser.password !== authenticPassword) {
-      errorPassword.textContent = "Sai mật khẩu"
-      showToast("Thất bại", "Mật khẩu xác nhận không khớp!", "error");
-      return;
-   }
-   if (authenticPassword === "") {
-      errorPassword.textContent = "Mật khẩu không được để trống";
-      showToast("Thất bại", "Mật khẩu Không được để trống", "error");
+      errorPassword.textContent = "Mật khẩu không tồn tại";
+      showToast("Thất bại", "Mật khẩu không tồn tại", "error");
       return;
    }
 
-
-   if (rememberMe.checked) {
-      localStorage.setItem("rememberedEmail", authenticEmail);
-      localStorage.setItem("rememberedPassword", authenticPassword);
+   if (checkBox.checked) {
+      localStorage.getItem("rememberEmail");
+      localStorage.getItem("rememberPassword");
    } else {
-      localStorage.removeItem("rememberedEmail");
-      localStorage.removeItem("rememberedPassword");
+      localStorage.removeItem("rememberEamil");
+      localStorage.removeItem("rememberPassword");
    }
 
-
-   showToast("Thành công", "Đặng nhập thàng công , đang chuyển hướng...");
-   localStorage.setItem("currentUser", JSON.stringify(findUser));
-
-
-   errorEmail.textContent = "";
-   errorPassword.textContent = "";
-
-   
+   showToast("Thành công", "Đăng nhập thành công, ... đang chuyển hướng đến rikkeiedu");
    setTimeout(() => {
       if (findUser.role === "admin") {
-         window.location = "admin.html"
-      } else if (findUser.role === "user") {
-         window.location = "index.html"
+         window.location.href = "admin.html";
+      } else {
+         window.location.href = "index.html";
       }
    }, 2000);
 
 });
-
