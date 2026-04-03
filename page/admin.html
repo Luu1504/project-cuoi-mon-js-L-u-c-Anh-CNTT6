@@ -6,6 +6,9 @@
    <title>Cinema Admin - Rikkei Cinema</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="/css/admin.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -98,6 +101,78 @@
          </div>
       </div>
    </div>
+
+
+
+   <div id="addMovieModal" class="overlay">
+      <div class="modal-lg">
+         <div class="modal-header">
+            <h2>Thêm Phim Mới</h2>
+            <i class="fa-solid fa-xmark close-icon" onclick="closeModalById('addMovieModal')"></i>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Tên phim <span class="required">*</span></label>
+               <input type="text" id="addName" placeholder="Nhập tên phim">
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Thể loại <span class="required">*</span></label>
+                  <select id="addGenre">
+                     <option value="">Chọn thể loại</option>
+                     <option value="Hành động, Viễn tưởng">Hành động, Viễn tưởng</option>
+                     <option value="Hoạt hình, Hài">Hoạt hình, Hài</option>
+                     <option value="Tâm lý, Tình cảm">Tâm lý, Tình cảm</option>
+                     <option value="Kinh dị, Bí ẩn">Kinh dị, Bí ẩn</option>
+                     <option value="Thể thao , Hài">Thể thao, Hài</option>
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Thời lượng (phút) <span class="required">*</span></label>
+                  <input type="number" id="addDuration" placeholder="Ví dụ: 120">
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Ngày khởi chiếu <span class="required">*</span></label>
+                  <input type="date" id="addDate">
+               </div>
+               <div class="form-group">
+                  <label>Trạng thái</label>
+                  <select id="addStatus">
+                     <option value="1">Đang chiếu</option>
+                     <option value="2">Sắp chiếu</option>
+                     <option value="0">Đã chiếu</option>
+                  </select>
+               </div>
+            </div>
+            <div class="form-group">
+               <label>Giá vé <span class="required">*</span></label>
+               <input type="text" id="addPrice" placeholder="Nhập giá vé ....">
+            </div>
+            <div class="form-group">
+               <label>URL Ảnh bìa</label>
+               <div class="input-with-btn">
+                  <div class="input-icon-wrapper">
+                     <i class="fa-solid fa-link"></i>
+                     <input type="text" id="addPoster" placeholder="https://example.com/poster.jpg">
+                  </div>
+                  <button class="btn-upload">Tải Ảnh</button>
+               </div>
+            </div>
+            <div class="form-group">
+               <label>Mô tả ngắn</label>
+               <textarea id="addDesc" rows="4" placeholder="Nhập tóm tắt nội dung phim..."></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button class="btn-cancel" onclick="closeModalById('addMovieModal')">Hủy</button>
+            <button class="btn-submit"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+         </div>
+      </div>
+   </div>
+
+   
 
    <script src="/js/admin.js"></script>
 </body>

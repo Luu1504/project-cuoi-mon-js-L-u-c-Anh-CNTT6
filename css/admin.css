@@ -211,14 +211,14 @@ small {
 }
 
 .st-yellow {
-   color: #f1c40f;
-   border-color: #f1c40f;
+   color: #6B7280;
+   border-color: #6B7280;
    background: rgba(241, 196, 15, 0.1);
 }
 
 .st-blue {
-   color: cyan;
-   border-color: cyan;
+   color: #f1c40f;
+   border-color: #f1c40f;
    background: rgba(46, 204, 113, 0.1);
 }
 
@@ -336,4 +336,244 @@ small {
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+/* thông báo toastify */
+.toastify {
+   /* Quan trọng nhất: Giúp thông báo không đẩy giao diện */
+   position: fixed !important;
+
+   /* Các thuộc tính khác giữ nguyên */
+   padding: 12px 20px;
+   color: #ffffff;
+   display: flex;
+   align-items: center;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+   border-radius: 8px;
+   background: #1e2532 !important;
+   opacity: 1;
+   max-width: 400px;
+   z-index: 9999;
+   /* Đảm bảo hiện trên cùng */
+   border-left: 6px solid transparent;
+}
+
+.toast-content {
+   display: flex;
+   flex-direction: column;
+   margin-left: 10px;
+   text-align: left;
+   /* Đảm bảo chữ căn trái */
+}
+
+.toast-title {
+   font-weight: bold;
+   font-size: 15px;
+   margin-bottom: 4px;
+   color: white;
+}
+
+.toast-message {
+   font-size: 13px;
+   color: #a0a0a0;
+}
+
+.toast-icon {
+   font-size: 22px;
+}
+
+.toast-success {
+   border-left-color: #28a745 !important;
+}
+
+.toast-success .toast-icon {
+   color: #28a745;
+}
+
+.toast-error {
+   border-left-color: #dc3545 !important;
+}
+
+.toast-error .toast-icon {
+   color: #dc3545;
+}
+
+.toastify .toast-close {
+   position: absolute;
+   top: 8px;
+   right: 10px;
+   color: #6c757d;
+}
+
+
+
+
+
+/* Container Modal (Mở rộng cho Add/Edit) */
+.modal-lg {
+   background-color: #1e0b0b;
+   width: 550px;
+   border-radius: 12px;
+   padding: 25px;
+   border: 1px solid #332222;
+   max-height: 90vh;
+   /* Ngăn modal vượt quá màn hình */
+   overflow-y: auto;
+   /* Thêm thanh cuộn dọc nếu form quá dài */
+}
+
+/* Ẩn thanh cuộn webkit cho gọn gàng */
+.modal-lg::-webkit-scrollbar {
+   display: none;
+}
+
+.modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 25px;
+}
+
+.modal-header h2 {
+   font-size: 1.2rem;
+   color: white;
+   margin: 0;
+}
+
+.close-icon {
+   color: #888;
+   cursor: pointer;
+   font-size: 1.2rem;
+   transition: 0.3s;
+}
+
+.close-icon:hover {
+   color: #e50914;
+}
+
+/* Form Styles */
+.form-group {
+   margin-bottom: 18px;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+
+.form-group label {
+   font-size: 13px;
+   font-weight: 500;
+   color: #e5e7eb;
+}
+
+.required {
+   color: #e50914;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+   background: #241414;
+   border: 1px solid #332222;
+   color: #d1d5db;
+   padding: 12px 15px;
+   border-radius: 8px;
+   font-size: 14px;
+   outline: none;
+   transition: 0.3s;
+   font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+   border-color: #e50914;
+   background: #2d1a1a;
+}
+
+textarea {
+   resize: vertical;
+}
+
+/* Layout chia cột */
+.form-row {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px;
+}
+
+/* Input có Icon và Button tải ảnh */
+.input-with-btn {
+   display: flex;
+   gap: 10px;
+}
+
+.input-icon-wrapper {
+   position: relative;
+   flex: 1;
+}
+
+.input-icon-wrapper i {
+   position: absolute;
+   left: 12px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: #666;
+   pointer-events: none;
+}
+
+.input-icon-wrapper input {
+   padding-left: 35px;
+   width: calc(100% - 50px);
+   /* Điều chỉnh padding cho phù hợp */
+}
+
+.btn-upload {
+   background: #332222;
+   border: 1px solid #443333;
+   color: #aaa;
+   padding: 0 20px;
+   border-radius: 8px;
+   cursor: pointer;
+   font-size: 13px;
+   transition: 0.3s;
+}
+
+.btn-upload:hover {
+   background: #443333;
+   color: white;
+}
+
+/* Footer Buttons */
+.btn-cancel {
+   background: #2d2424;
+   color: white;
+   border: 1px solid #443333;
+   padding: 10px 25px;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: 500;
+   transition: 0.3s;
+}
+
+.btn-cancel:hover {
+   background: #3d3131;
+}
+
+.btn-submit {
+   background: #e50914;
+   color: white;
+   border: none;
+   padding: 10px 25px;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: bold;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   transition: 0.3s;
+}
+
+.btn-submit:hover {
+   background: #ff0a16;
+   transform: translateY(-1px);
 }

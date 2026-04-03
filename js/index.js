@@ -11,7 +11,7 @@ if (!data.movies) {
             "duration": 166,
             "releaseDate": "01/03/2024",
             "status": 1,
-            "posterUrl": "/asset/image/DunePoster.png",
+            "posterUrl": "/asset/image/Dune_2_VN_poster.jpg",
             "description": "Tiếp nối phần trước, Paul Atreides hợp nhất với Fremen để trả thù gia tộc Harkonnen và đối mặt với số phận của vũ trụ.",
             "ticketPrice": 95000
          },
@@ -23,7 +23,7 @@ if (!data.movies) {
             "duration": 94,
             "releaseDate": "08/03/2024",
             "status": 1,
-            "posterUrl": "/asset/image/KungFuPandaPoster.png",
+            "posterUrl": "/asset/image/image.jpg",
             "description": "Po tiếp tục hành trình trở thành Chiến binh Rồng, đối mặt với kẻ thù mới và tìm người kế nhiệm.",
             "ticketPrice": 80000
          },
@@ -35,7 +35,7 @@ if (!data.movies) {
             "duration": 115,
             "releaseDate": "29/03/2024",
             "status": 2,
-            "posterUrl": "/asset/image/GodzillaPoster.png",
+            "posterUrl": "/asset/image/gozxkong.jpg",
             "description": "Godzilla và Kong hợp sức chống lại mối đe dọa mới từ lòng đất.",
             "ticketPrice": 80000
          },
@@ -47,7 +47,7 @@ if (!data.movies) {
             "duration": 131,
             "releaseDate": "10/02/2024",
             "status": 0,
-            "posterUrl": "/asset/image/MaiPoster.png",
+            "posterUrl": "/asset/image/MaiPoster.jpg",
             "description": "Câu chuyện về một người phụ nữ mạnh mẽ đối mặt với những biến cố trong cuộc sống.",
             "ticketPrice": 80000
          },
@@ -59,8 +59,32 @@ if (!data.movies) {
             "duration": 134,
             "releaseDate": "15/03/2024",
             "status": 1,
-            "posterUrl": "/asset/image/ExhumaPoster.png",
+            "posterUrl": "/asset/image/Exhuma-1A.jpg",
             "description": "Một nhóm chuyên gia phong thủy khai quật mộ cổ và đối mặt với lời nguyền đáng sợ.",
+            "ticketPrice": 80000
+         },
+         {
+            "id": 6,
+            "title": "Thỏ ơi",
+            "titleVi": "Thỏ ơi",
+            "genres": "lãng mạn, giật gân",
+            "duration": 127,
+            "releaseDate": "17/02/2024",
+            "status": 1,
+            "posterUrl": "/asset/image/to_poster_official_tiectet_3x4_fa.jpg",
+            "description": "Phim khai thác góc khuất hôn nhân thông qua câu chuyện của influencer Hải Linh (LyLy) và vị khách Thỏ (Pháo), hé lộ những bí mật đen tối",
+            "ticketPrice": 80000
+         },
+         {
+            "id": 7,
+            "title": "GOAT",
+            "titleVi": `Tuyển thủ Dê: "Mùi" vị chiến thắng`,
+            "genres": "Thể thao,Hài",
+            "duration": 180,
+            "releaseDate": "13/02/2026",
+            "status": 2,
+            "posterUrl": "/asset/image/MV5BYzE5OTJkOGMtYWFiNi00NTlkLWE3ZWItY2ZlNjkyOWVhMjMyXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+            "description": "kể về Will, một chú dê nhỏ nuôi mộng trở thành cầu thủ Roarball vĩ đại",
             "ticketPrice": 80000
          }
       ],
@@ -162,12 +186,37 @@ if (!data.movies) {
          }
       ]
    }
-   localStorage.setItem("movieData", JSON.stringify(data));
 }
 
+localStorage.setItem("movieData", JSON.stringify(data));
 
-let movieData = document.getElementById("movieList");
 
+function showToast(title, message, type = "success") {
+   let icon = type === "success"
+      ? '<i class="fa-solid fa-circle-check toast-icon"></i>'
+      : '<i class="fa-solid fa-circle-xmark toast-icon"></i>';
+
+   Toastify({
+      text: `
+            <div style="display: flex; align-items: center; gap: 12px;">
+                ${icon}
+                <div class="toast-content">
+                    <span class="toast-title">${title}</span>
+                    <span class="toast-message">${message}</span>
+                </div>
+            </div>
+        `,
+      duration: 3000,
+      escapeMarkup: false,
+      gravity: "top",
+      position: "right",
+      close: true,
+      className: type === "success" ? "toast-success" : "toast-error",
+      stopOnFocus: true,
+   }).showToast();
+}
+
+let movieList = document.getElementById("movieList");
 
 function renderAllMovieList() {
    let filterMovieList = data.movies.filter(s => {
@@ -175,7 +224,7 @@ function renderAllMovieList() {
    });
    let showAll = filterMovieList.map(s => {
       return `
-      <div id="movieCard" class="movie-card">
+      <div class="movie-card">
                <div class="poster-wrapper">
                   <img src="${s.posterUrl}" alt="${s.title}">
                </div>
@@ -187,8 +236,10 @@ function renderAllMovieList() {
             </div>
       `
    }).join("");
-   movieData.innerHTML = showAll;
+
+   movieList.innerHTML = showAll;
 }
+
 renderAllMovieList();
 
 
