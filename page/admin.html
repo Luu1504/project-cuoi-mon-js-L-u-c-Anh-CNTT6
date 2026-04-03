@@ -103,12 +103,12 @@
    </div>
 
 
-
+   <!-- Modal thêm phim mới -->
    <div id="addMovieModal" class="overlay">
       <div class="modal-lg">
          <div class="modal-header">
             <h2>Thêm Phim Mới</h2>
-            <i class="fa-solid fa-xmark close-icon" onclick="closeModalById('addMovieModal')"></i>
+            <i class="fa-solid fa-xmark close-icon"></i>
          </div>
          <div class="modal-body">
             <div class="form-group">
@@ -166,13 +166,79 @@
             </div>
          </div>
          <div class="modal-footer">
-            <button class="btn-cancel" onclick="closeModalById('addMovieModal')">Hủy</button>
+            <button class="btn-cancel">Hủy</button>
             <button class="btn-submit"><i class="fa-solid fa-plus"></i> Thêm mới</button>
          </div>
       </div>
    </div>
 
-   
+   <!-- Modal chỉnh sửa phim -->
+   <div id="editMovieModal" class="overlay">
+      <div class="modal-lg">
+         <div class="modal-header">
+            <h2>Cập Nhật Thông Tin Phim</h2>
+            <i class="fa-solid fa-xmark close-icon"></i>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Tên phim <span class="required">*</span></label>
+               <input type="text" id="editName" placeholder="Nhập tên phim">
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Thể loại <span class="required">*</span></label>
+                  <select id="editGenre">
+                     <option value="Hành động, Viễn tưởng">Hành động, Viễn tưởng</option>
+                     <option value="Hoạt hình, Hài">Hoạt hình, Hài</option>
+                     <option value="Tâm lý, Tình cảm">Tâm lý, Tình cảm</option>
+                     <option value="Kinh dị, Bí ẩn">Kinh dị, Bí ẩn</option>
+                     <option value="Thể thao , Hài">Thể thao, Hài</option>
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Thời lượng (phút) <span class="required">*</span></label>
+                  <input type="number" id="editDuration" placeholder="Ví dụ: 120">
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Ngày khởi chiếu <span class="required">*</span></label>
+                  <input type="date" id="editDate">
+               </div>
+               <div class="form-group">
+                  <label>Trạng thái</label>
+                  <select id="editStatus">
+                     <option value="1">Đang chiếu</option>
+                     <option value="2">Sắp chiếu</option>
+                     <option value="0">Đã chiếu</option>
+                  </select>
+               </div>
+            </div>
+            <div class="form-group">
+               <label>Giá vé <span class="required">*</span></label>
+               <input type="text" id="editPrice" placeholder="Nhập giá vé ....">
+            </div>
+            <div class="form-group">
+               <label>URL Ảnh bìa</label>
+               <div class="input-with-btn">
+                  <div class="input-icon-wrapper">
+                     <i class="fa-solid fa-link"></i>
+                     <input type="text" id="editPoster" placeholder="https://example.com/poster.jpg">
+                  </div>
+                  <button class="btn-upload">Tải Ảnh</button>
+               </div>
+            </div>
+            <div class="form-group">
+               <label>Mô tả ngắn</label>
+               <textarea id="editDesc" rows="4" placeholder="Nhập tóm tắt nội dung phim..."></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button class="btn-cancel">Hủy</button>
+            <button class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Cập nhật</button>
+         </div>
+      </div>
+   </div>
 
    <script src="/js/admin.js"></script>
 </body>
