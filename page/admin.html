@@ -7,8 +7,6 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="/css/admin.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -29,86 +27,140 @@
    </div>
 
    <div class="main">
-      <div class="header">
-         <div>
-            <h1>Quản lý danh sách phim</h1>
-            <p>Xem, chỉnh sửa và quản lý tất cả phim hiện có trên hệ thống.</p>
-         </div>
-         <div class="actions">
-            <div class="search-box">
-               <i class="fa-solid fa-magnifying-glass"></i>
-               <input type="text" id="searchInput" placeholder="Tìm tên phim...">
+
+      <div id="movieSection">
+         <div class="header">
+            <div>
+               <h1>Quản lý danh sách phim</h1>
+               <p>Xem, chỉnh sửa và quản lý tất cả phim hiện có trên hệ thống.</p>
             </div>
-            <button id="btnRed" class="btn-red">+ Thêm phim mới</button>
+            <div class="actions">
+               <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="text" id="searchInput" placeholder="Tìm tên phim...">
+               </div>
+               <button id="btnRed" class="btn-red">+ Thêm phim mới</button>
+            </div>
          </div>
-      </div>
 
-      <div id="tabs" class="tabs">
-         <button id="showAllBtn" class="t-btn active" data-status="all">Tất cả</button>
-         <button id="isShowingBtn" class="t-btn" data-status="dang-chieu">Đang chiếu</button>
-         <button id="comingSoonBtn" class="t-btn" data-status="sap-chieu">Sắp chiếu</button>
-         <button id="screenedBtn" class="t-btn" data-status="da-chieu">Đã chiếu</button>
-      </div>
+         <div id="tabs" class="tabs">
+            <button id="showAllBtn" class="t-btn active" data-status="all">Tất cả</button>
+            <button id="isShowingBtn" class="t-btn" data-status="dang-chieu">Đang chiếu</button>
+            <button id="comingSoonBtn" class="t-btn" data-status="sap-chieu">Sắp chiếu</button>
+            <button id="screenedBtn" class="t-btn" data-status="da-chieu">Đã chiếu</button>
+         </div>
 
-      <div class="card">
-         <table>
-            <thead>
-               <tr>
-                  <th>ẢNH BÌA</th>
-                  <th>TÊN PHIM</th>
-                  <th>THỂ LOẠI</th>
-                  <th>THỜI LƯỢNG</th>
-                  <th>NGÀY KHỞI CHIẾU</th>
-                  <th>TRẠNG THÁI</th>
-                  <th>THAO TÁC</th>
-               </tr>
-            </thead>
-            <tbody id="movieTableBody">
+         <div class="card">
+            <table>
+               <thead>
+                  <tr>
+                     <th>ẢNH BÌA</th>
+                     <th>TÊN PHIM</th>
+                     <th>THỂ LOẠI</th>
+                     <th>THỜI LƯỢNG</th>
+                     <th>NGÀY KHỞI CHIẾU</th>
+                     <th>TRẠNG THÁI</th>
+                     <th>THAO TÁC</th>
+                  </tr>
+               </thead>
+               <tbody id="movieTableBody">
+               </tbody>
+            </table>
 
-            </tbody>
-         </table>
-
-         <div class="pagination">
-            <span>Hiển thị 1-5 trên 24 phim</span>
-            <div class="pages">
-               <button><i class="fa-solid fa-chevron-left"></i></button>
-               <button class="active">1</button>
-               <button>2</button>
-               <button>3</button>
-               <span>...</span>
-               <button>5</button>
-               <button><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="pagination">
+               <span>Hiển thị 1-5 trên 24 phim</span>
+               <div class="pages">
+               </div>
             </div>
          </div>
       </div>
+
+      <div id="ticketSection" style="display: none;">
+         <div class="header">
+            <div>
+               <h1>Quản lý vé đã đặt</h1>
+            </div>
+            <div class="actions">
+               <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="text" id="searchTicketInput" placeholder="Tìm kiếm mã vé, tên khách...">
+               </div>
+            </div>
+         </div>
+
+         <div class="stats-grid">
+            <div class="stat-card">
+               <div class="stat-info">
+                  <p>Tổng vé hôm nay</p>
+                  <h3>152</h3>
+                  <small class="text-green">+12% so với hôm qua</small>
+               </div>
+               <i class="fa-solid fa-ticket stat-icon"></i>
+            </div>
+            <div class="stat-card">
+               <div class="stat-info">
+                  <p>Doanh thu ngày</p>
+                  <h3>12.5tr<span>đ</span></h3>
+                  <small class="text-green">+5% so với mục tiêu</small>
+               </div>
+               <i class="fa-solid fa-money-bill-wave stat-icon"></i>
+            </div>
+            <div class="stat-card">
+               <div class="stat-info">
+                  <p>Vé chờ xác nhận</p>
+                  <h3>5</h3>
+                  <small class="text-orange"><i class="fa-solid fa-triangle-exclamation"></i> Cần xử lý ngay</small>
+               </div>
+               <i class="fa-solid fa-clipboard-list stat-icon"></i>
+            </div>
+         </div>
+
+         <button id="btnAddTicket" class="btn-red" style="margin-bottom: 20px;">+ Đặt vé</button>
+
+         <div class="card">
+            <table>
+               <thead>
+                  <tr>
+                     <th>MÃ VÉ</th>
+                     <th>KHÁCH HÀNG</th>
+                     <th>PHIM</th>
+                     <th>SUẤT CHIẾU</th>
+                     <th>GHẾ</th>
+                     <th>TỔNG TIỀN</th>
+                     <th>TRẠNG THÁI</th>
+                     <th>THAO TÁC</th>
+                  </tr>
+               </thead>
+               <tbody id="ticketTableBody">
+               </tbody>
+            </table>
+         </div>
+      </div>
+
    </div>
-
-
-   <div id="overlayClass" class="overlay">
+   <div id="overlayClass" class="overlayWarning">
       <div class="modal">
-         <div class="imgModal">
+         <div class="imgModalWarning">
             <img src="/asset/icon/Warning Icon.png">
          </div>
-         <div class="modal-header">
+         <div class="modal-header-warning">
             <h2>Xác nhận xóa phim</h2>
          </div>
-         <div class="modal-content">
+         <div class="modal-content-warning">
             <p>Bạn có chắc chắn muốn xóa phim không? Hành động này không thể hoàn tác</p>
          </div>
-         <div class="modal-footer">
-            <button id="cancelBtn" class="abort">Hủy</button>
-            <button id="confirmDeleteBtn" class="deleteNow">Xóa ngay</button>
+         <div class="modal-footer-warning">
+            <button id="cancelBtn" class="abort-warning">Hủy</button>
+            <button id="confirmDeleteBtn" class="deleteNow-warning">Xóa ngay</button>
          </div>
       </div>
    </div>
 
-
-   <!-- Modal thêm phim mới -->
    <div id="addMovieModal" class="overlay">
       <div class="modal-lg">
          <div class="modal-header">
             <h2>Thêm Phim Mới</h2>
-            <i class="fa-solid fa-xmark close-icon"></i>
+            <i id="closeAddIcon" class="fa-solid fa-xmark close-icon"></i>
          </div>
          <div class="modal-body">
             <div class="form-group">
@@ -166,18 +218,17 @@
             </div>
          </div>
          <div class="modal-footer">
-            <button class="btn-cancel">Hủy</button>
-            <button class="btn-submit"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+            <button id="btnCancelAdd" class="btn-cancel">Hủy</button>
+            <button id="btnSubmitAdd" class="btn-submit"><i class="fa-solid fa-plus"></i> Thêm mới</button>
          </div>
       </div>
    </div>
 
-   <!-- Modal chỉnh sửa phim -->
    <div id="editMovieModal" class="overlay">
       <div class="modal-lg">
          <div class="modal-header">
             <h2>Cập Nhật Thông Tin Phim</h2>
-            <i class="fa-solid fa-xmark close-icon"></i>
+            <i id="closeEditIcon" class="fa-solid fa-xmark close-icon"></i>
          </div>
          <div class="modal-body">
             <div class="form-group">
@@ -234,12 +285,81 @@
             </div>
          </div>
          <div class="modal-footer">
-            <button class="btn-cancel">Hủy</button>
-            <button class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Cập nhật</button>
+            <button id="btnCancelEdit" class="btn-cancel">Hủy</button>
+            <button id="btnSubmitEdit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Cập nhật</button>
          </div>
       </div>
    </div>
 
+   <div id="addTicketModal" class="overlay">
+      <div class="modal-lg">
+         <div class="modal-header">
+            <h2>Thêm Mới Đặt Vé</h2>
+            <i id="closeTicketModal" class="fa-solid fa-xmark close-icon"></i>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Chọn khách hàng</label>
+               <select id="tkCustomer">
+                  <option>Tìm kiếm tên hoặc SĐT...</option>
+               </select>
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Chọn phim</label>
+                  <select id="tkMovie">
+                     <option>Chọn phim đang chiếu...</option>
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Chọn suất chiếu</label>
+                  <select id="tkShowtime">
+                     <option>Chọn Suất</option>
+                  </select>
+               </div>
+            </div>
+            <div class="form-group">
+               <label>Chọn ghế</label>
+               <input type="text" id="tkSeats" placeholder="Phân cách các ghế bằng dấu phẩy (VD: F5, F6)">
+            </div>
+            <div class="form-row">
+               <div class="form-group">
+                  <label>Phương thức thanh toán</label>
+                  <select id="tkPayment">
+                     <option>Tiền mặt</option>
+                     <option>Chuyển khoản</option>
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Trạng thái thanh toán</label>
+                  <select id="tkStatus">
+                     <option>Đã thanh toán</option>
+                     <option>Chờ xử lý</option>
+                  </select>
+               </div>
+            </div>
+
+            <div class="total-box">
+               <div class="total-left">
+                  <i class="fa-solid fa-receipt"></i>
+                  <div>
+                     <span>TỔNG TIỀN DỰ KIẾN</span>
+                     <h2>240.000 đ</h2>
+                  </div>
+               </div>
+               <div class="total-right">
+                  <small>2 vé x 120.000 đ<br>Đã bao gồm VAT</small>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button id="cancelTicketBtn" class="btn-cancel">Hủy</button>
+            <button class="btn-submit"><i class="fa-solid fa-check"></i> Xác nhận đặt vé</button>
+         </div>
+      </div>
+   </div>
+
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
    <script src="/js/admin.js"></script>
 </body>
 

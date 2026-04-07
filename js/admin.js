@@ -5,14 +5,14 @@ if (!data.movies) {
       "movies": [
          {
             "id": 1,
-            "title": "Dune: Part Two",
-            "titleVi": "Dune: Hành Tinh Cát - Phần 2",
+            "title": "Dune",
+            "titleVi": "Dune",
             "genres": "Hành động, Viễn tưởng",
             "duration": 166,
             "releaseDate": "01/03/2024",
             "status": 1,
-            "posterUrl": "/asset/image/Dune_2_VN_poster.jpg",
-            "description": "Tiếp nối phần trước, Paul Atreides hợp nhất với Fremen để trả thù gia tộc Harkonnen và đối mặt với số phận của vũ trụ.",
+            "posterUrl": "/asset/image/wallpapersden.com_dune-digital-movie-art_5120x2880.jpg",
+            "description": `Dune là bản anh hùng ca về Paul Atreides trong cuộc chiến sinh tồn và giành quyền kiểm soát "hương dược" quý hiếm trên hành tinh sa mạc Arrakis khắc nghiệt.`,
             "ticketPrice": 95000
          },
          {
@@ -190,128 +190,220 @@ if (!data.movies) {
 
 localStorage.setItem("movieData", JSON.stringify(data));
 
-// ==========================================
-// 2. HÀM THÔNG BÁO (TOASTIFY)
-// ==========================================
-function showToast(title, message, type = "success") {
-   let icon = type === "success"
-      ? '<i class="fa-solid fa-circle-check toast-icon"></i>'
-      : '<i class="fa-solid fa-circle-xmark toast-icon"></i>';
+const showToast = (title, message, type) => {
+   let icon = "";
+   let toastClass = "";
+
+   if (type === "error") {
+      icon = '<i class="fa-solid fa-circle-xmark toast-icon"></i>';
+      toastClass = "toast-error";
+   } else {
+      icon = '<i class="fa-solid fa-circle-check toast-icon"></i>';
+      toastClass = "toast-success";
+   }
 
    Toastify({
-      text: `
-            <div style="display: flex; align-items: center; gap: 12px;">
-                ${icon}
-                <div class="toast-content">
-                    <span class="toast-title">${title}</span>
-                    <span class="toast-message">${message}</span>
-                </div>
-            </div>
-        `,
+      text: `<div style="display: flex; align-items: center; gap: 12px;">${icon}<div class="toast-content"><span class="toast-title">${title}</span><span class="toast-message">${message}</span></div></div>`,
       duration: 3000,
       escapeMarkup: false,
       gravity: "top",
       position: "right",
       close: true,
-      className: type === "success" ? "toast-success" : "toast-error",
+      className: toastClass,
       stopOnFocus: true,
    }).showToast();
-}
+};
 
-// ==========================================
-// 3. RENDER BẢNG & GẮN SỰ KIỆN NÚT (SỬA/XÓA)
-// ==========================================
-const movieTbody = document.getElementById("movieTableBody");
+const deleteModal = document.getElementById("overlayClass");
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+let idToDelete = null;
 
-function renderMovies(movieArray = data.movies) {
-   let html = movieArray.map(s => {
-      let statusText = s.status === 1 ? "Đang chiếu" : s.status === 2 ? "Sắp chiếu" : "Đã chiếu";
-      let statusClass = s.status === 1 ? "st-green" : s.status === 2 ? "st-blue" : "st-yellow";
+const openModal = (id) => {
+   deleteModal.style.display = "flex";
+   idToDelete = id;
+};
 
-      // KHÔNG dùng onclick ở đây nữa, dùng class và data-id để addEventListener sau
-      return `<tr>
-                  <td><img src="${s.posterUrl}" class="poster" onerror="this.src='https://placehold.co/50x75?text=Loi'"></td>
-                  <td><b>${s.title}</b><br><small>${s.titleVi}</small></td>
-                  <td><span class="tag">${s.genres}</span></td>
-                  <td>${s.duration}</td>
-                  <td>${s.releaseDate}</td>
-                  <td><span class="st ${statusClass}">${statusText}</span></td>
-                  <td class="icon-btns">
-                     <i data-id="${s.id}" class="fa-solid fa-pen btn-edit-icon"></i> 
-                     <i data-id="${s.id}" class="fa-solid fa-circle-xmark btn-delete-icon"></i>
-                  </td>
-               </tr>`;
-   }).join("");
+const closeModal = () => {
+   idToDelete = null;
+   deleteModal.style.display = "none";
+};
 
-   movieTbody.innerHTML = html;
-   initTableEvents(); // Gắn sự kiện ngay sau khi vẽ bảng
-}
-
-// Gắn sự kiện cho các icon vừa được tạo ra bằng innerHTML
-function initTableEvents() {
-   // Nút Sửa
-   document.querySelectorAll(".btn-edit-icon").forEach(icon => {
-      icon.addEventListener("click", () => {
-         let id = Number(icon.getAttribute("data-id"));
-         openEditModal(id);
-      });
-   });
-
-   // Nút Xóa
-   document.querySelectorAll(".btn-delete-icon").forEach(icon => {
-      icon.addEventListener("click", () => {
-         idToDelete = Number(icon.getAttribute("data-id"));
-         document.getElementById("overlayClass").style.display = "flex";
-      });
-   });
-}
-
-// ==========================================
-// 4. TÌM KIẾM & LỌC THEO TAB
-// ==========================================
-const searchInput = document.getElementById("searchInput");
-const tabButtons = document.querySelectorAll(".t-btn");
-
-function executeFilter() {
-   const searchValue = searchInput.value.toLowerCase();
-   const activeTab = document.querySelector(".t-btn.active").getAttribute("data-status");
-
-   const filtered = data.movies.filter(m => {
-      const matchSearch = m.title.toLowerCase().includes(searchValue) || m.titleVi.toLowerCase().includes(searchValue);
-      let matchTab = true;
-      if (activeTab === "dang-chieu") matchTab = (m.status === 1);
-      else if (activeTab === "sap-chieu") matchTab = (m.status === 2);
-      else if (activeTab === "da-chieu") matchTab = (m.status === 0);
-
-      return matchSearch && matchTab;
-   });
-
-   renderMovies(filtered);
-}
-
-searchInput.addEventListener("input", executeFilter);
-
-tabButtons.forEach(btn => {
-   btn.addEventListener("click", () => {
-      tabButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      executeFilter();
-   });
+cancelBtn.addEventListener("click", () => {
+   closeModal();
 });
 
-// ==========================================
-// 5. THÊM PHIM MỚI
-// ==========================================
+confirmDeleteBtn.addEventListener("click", () => {
+   if (idToDelete !== null) {
+      let vitri = data.movies.findIndex((s) => {
+         if (s.id === idToDelete) {
+            return true;
+         } else {
+            return false;
+         }
+      });
+
+      data.movies.splice(vitri, 1);
+      localStorage.setItem("movieData", JSON.stringify(data));
+      executeFilter();
+      closeModal();
+      showToast("Thành công", "Đã xóa phim!", "success");
+   }
+});
+
+const renderMovies = (movieArray) => {
+   if (!movieArray) { movieArray = data.movies; }
+
+   let htmlArray = movieArray.map((s) => {
+      let statusText = "";
+      let statusClass = "";
+
+      if (s.status === 1) {
+         statusText = "Đang chiếu"; statusClass = "st-green";
+      } else if (s.status === 2) {
+         statusText = "Sắp chiếu"; statusClass = "st-blue";
+      } else {
+         statusText = "Đã chiếu"; statusClass = "st-yellow";
+      }
+
+      return `<tr>
+                 <td><img src="${s.posterUrl}" class="poster" onerror="this.src='https://placehold.co/50x75?text=Loi'"></td>
+                 <td><b>${s.title}</b><br><small>${s.titleVi}</small></td>
+                 <td><span class="tag">${s.genres}</span></td>
+                 <td>${s.duration}</td>
+                 <td>${s.releaseDate}</td>
+                 <td><span class="st ${statusClass}">${statusText}</span></td>
+                 <td class="icon-btns">
+                    <i id="edit-icon-${s.id}" class="fa-solid fa-pen btn-edit-icon"></i> 
+                    <i id="delete-icon-${s.id}" class="fa-solid fa-circle-xmark btn-delete-icon"></i>
+                 </td>
+              </tr>`;
+   });
+
+   document.getElementById("movieTableBody").innerHTML = htmlArray.join("");
+   initTableEvents(movieArray);
+};
+
+const initTableEvents = (movieArray) => {
+   movieArray.forEach((movie) => {
+      let id = movie.id;
+
+      let editBtn = document.getElementById("edit-icon-" + id);
+      if (editBtn) {
+         editBtn.addEventListener("click", () => { openEditModal(id); });
+      }
+
+      let deleteBtn = document.getElementById("delete-icon-" + id);
+      if (deleteBtn) {
+         deleteBtn.addEventListener("click", () => { openModal(id); });
+      }
+   });
+};
+
+let editMovieModal = document.getElementById("editMovieModal");
+let closeEditIcon = document.getElementById("closeEditIcon");
+let btnCancelEdit = document.getElementById("btnCancelEdit");
+let btnSubmitEdit = document.getElementById("btnSubmitEdit");
+let idToEdit = null;
+
+const openEditModal = (id) => {
+   idToEdit = id;
+   let movie = data.movies.find(m => {
+      if (m.id === idToEdit) {
+         return true;
+      } else {
+         return false;
+      }
+   });
+
+   if (!movie) {
+      return;
+   }
+
+   document.getElementById("editName").value = movie.title;
+   document.getElementById("editGenre").value = movie.genres;
+   document.getElementById("editDuration").value = movie.duration;
+   document.getElementById("editStatus").value = movie.status;
+   document.getElementById("editPrice").value = movie.ticketPrice;
+   document.getElementById("editPoster").value = movie.posterUrl;
+   document.getElementById("editDesc").value = movie.description;
+
+   let part = movie.releaseDate.split("/");
+   document.getElementById("editDate").value = `${part[2]}-${part[1].padStart(2, "0")}-${part[0].padStart(2, "0")}`;
+
+   editMovieModal.style.display = "flex";
+}
+
+const closeEditModal = () => {
+   idToEdit = null;
+   editMovieModal.style.display = "none";
+}
+
+btnCancelEdit.addEventListener("click", closeEditModal);
+closeEditIcon.addEventListener("click", closeEditModal);
+
+btnSubmitEdit.addEventListener("click", () => {
+   if (idToEdit === null) {
+      return;
+   }
+   let dateInput = document.getElementById("editDate").value;
+   let selectedDate = new Date(dateInput);
+   let today = new Date();
+   today.setHours(0, 0, 0, 0);
+   if (selectedDate < today) {
+      showToast("Lỗi", "Ngày phát hành không thể là ngày trong quá khứ", "error");
+      return;
+   }
+
+   let editPoster = document.getElementById("editPoster").value.trim();
+   let urlRegex = /^(https?:\/\/|\/)[^\s]+$/i;
+
+   if (editPoster !== "" && !urlRegex.test(editPoster)) {
+      showToast("Lỗi", "Đường dẫn không hợp lệ", "error");
+      return;
+   }
+
+   let index = data.movies.findIndex(m => {
+      if (m.id === idToEdit) {
+         return true;
+      } else {
+         return false;
+      }
+   });
+
+   if (index !== -1) {
+      let dateSplit = dateInput.split("-");
+      let dateParts = `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`;
+      let newName = document.getElementById("editName").value.trim();
+
+      data.movies[index].title = newName;
+      data.movies[index].titleVi = newName;
+      data.movies[index].genres = document.getElementById("editGenre").value;
+      data.movies[index].duration = +(document.getElementById("editDuration").value);
+      data.movies[index].releaseDate = dateParts;
+      data.movies[index].status = +(document.getElementById("editStatus").value);
+      data.movies[index].posterUrl = editPoster !== "" ? editPoster : "https://placehold.co/150x220?text=No+Image";
+      data.movies[index].description = document.getElementById("editDesc").value.trim();
+      data.movies[index].ticketPrice = +(document.getElementById("editPrice").value);
+
+      localStorage.setItem("movieData", JSON.stringify(data));
+      executeFilter();
+      closeEditModal();
+      showToast("Thành công", "Cập nhật phim thành công", "success");
+   }
+});
+
 const btnRed = document.getElementById("btnRed");
 const addMovieModal = document.getElementById("addMovieModal");
-const closeIconAdd = addMovieModal.querySelector(".close-icon");
-const btnCancelAdd = addMovieModal.querySelector(".btn-cancel");
-const btnSubmitAdd = addMovieModal.querySelector(".btn-submit");
+const closeIconAdd = document.getElementById("closeAddIcon");
+const btnCancelAdd = document.getElementById("btnCancelAdd");
+const btnSubmitAdd = document.getElementById("btnSubmitAdd");
 
-const closeAddModal = () => { addMovieModal.style.display = "none"; };
+const closeAddModal = () => {
+   addMovieModal.style.display = "none";
+}
 
 btnRed.addEventListener("click", () => {
-   // Xóa trắng form
    document.getElementById("addName").value = "";
    document.getElementById("addGenre").value = "";
    document.getElementById("addDuration").value = "";
@@ -320,6 +412,7 @@ btnRed.addEventListener("click", () => {
    document.getElementById("addPrice").value = "";
    document.getElementById("addPoster").value = "";
    document.getElementById("addDesc").value = "";
+
    addMovieModal.style.display = "flex";
 });
 
@@ -336,142 +429,243 @@ btnSubmitAdd.addEventListener("click", () => {
    let poster = document.getElementById("addPoster").value.trim();
    let desc = document.getElementById("addDesc").value.trim();
 
-   if (name === "" || genre === "" || duration === "" || date === "" || price === "") {
-      showToast("Lỗi", "Vui lòng nhập đầy đủ các trường bắt buộc (*)", "error");
+   if (name === "" || genre === "" || duration === "" || date === "" || status === "" || price === "" || poster === "" || desc === "") {
+      showToast("Lỗi", "Vui lòng nhập tất cả các yêu cầu bắt buộc", "error");
+      return;
+   }
+
+   let urlRegex = /^(https?:\/\/|\/)[^\s]+$/i;
+   if (!urlRegex.test(poster)) {
+      showToast("Lỗi", "Đường dẫn ảnh không hợp lệ", "error");
+      return;
+   }
+
+   let selectedDate = new Date(date);
+   let today = new Date();
+   today.setHours(0, 0, 0, 0);
+   if (selectedDate < today) {
+      showToast("Lỗi", "Ngày phát hành không thể là ngày trong quá khứ", "error");
       return;
    }
 
    let dateParts = date.split("-");
-   let formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-   let newId = data.movies.length > 0 ? Math.max(...data.movies.map(m => m.id)) + 1 : 1;
+   let formatDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+   let newId = data.movies.length > 0 ? data.movies[data.movies.length - 1].id + 1 : 1;
+   let finalPoster = poster !== "" ? poster : "https://placehold.co/150x220?text=No+Image";
 
    let newMovie = {
       id: newId,
       title: name,
       titleVi: name,
       genres: genre,
-      duration: Number(duration),
-      releaseDate: formattedDate,
-      status: Number(status),
-      posterUrl: poster !== "" ? poster : "https://placehold.co/150x220?text=No+Image",
+      duration: +(duration),
+      releaseDate: formatDate,
+      status: +(status),
+      posterUrl: finalPoster,
       description: desc,
-      ticketPrice: Number(price)
-   };
+      ticketPrice: +(price)
+   }
 
    data.movies.push(newMovie);
    localStorage.setItem("movieData", JSON.stringify(data));
 
    executeFilter();
    closeAddModal();
-   showToast("Thành công", "Đã thêm phim mới!", "success");
+   showToast("Thành công", "Thêm phim mới thành công", "success");
 });
 
-// ==========================================
-// 6. SỬA PHIM
-// ==========================================
-let idToEdit = null;
-const editMovieModal = document.getElementById("editMovieModal");
-const closeIconEdit = editMovieModal.querySelector(".close-icon");
-const btnCancelEdit = editMovieModal.querySelector(".btn-cancel");
-const btnSubmitEdit = editMovieModal.querySelector(".btn-submit");
+const searchInput = document.getElementById("searchInput");
+const tabAll = document.getElementById("showAllBtn");
+const tabShowing = document.getElementById("isShowingBtn");
+const tabComing = document.getElementById("comingSoonBtn");
+const tabScreened = document.getElementById("screenedBtn");
+const tabs = [tabAll, tabShowing, tabComing, tabScreened];
 
-const closeEditModal = () => {
-   editMovieModal.style.display = "none";
-   idToEdit = null;
-};
+const executeFilter = () => {
+   let searchValue = searchInput.toLowerCase();
+   let searchModal = data.movies.filter(m => {
+      let titleLower = m.title.toLowerCase();
+      if (titleLower.includes(searchValue)) {
+         return true;
+      } else {
+         return false;
+      }
+   });
 
-closeIconEdit.addEventListener("click", closeEditModal);
-btnCancelEdit.addEventListener("click", closeEditModal);
+   let showingModal = searchModal.filter(m => m.status === 1);
+   let comingModal = searchModal.filter(m => m.status === 2);
+   let screenedModal = searchModal.filter(m => m.status === 0);
 
-function openEditModal(id) {
-   const movie = data.movies.find(m => m.id === id);
-   if (!movie) return;
+   let activeTabs = "all";
+   tabs.forEach(tab => {
+      if (tab.classList.contains("active")) {
+         activeTabs = tab.getAttribute("data-status");
+      }
+   });
 
-   idToEdit = id;
+   if (activeTabs === "all") {
+      currentFilteredMovies = searchModal;
+   } else if (activeTabs === "dang-chieu") {
+      currentFilteredMovies = showingModal;
+   } else if (activeTabs === "sap-chieu") {
+      currentFilteredMovies = comingModal;
+   } else if (activeTabs === "da-chieu") {
+      currentFilteredMovies = screenedModal;
+   }
 
-   document.getElementById("editName").value = movie.title;
-   document.getElementById("editGenre").value = movie.genres;
-   document.getElementById("editDuration").value = movie.duration;
-   document.getElementById("editStatus").value = movie.status;
-   document.getElementById("editPrice").value = movie.ticketPrice;
-   document.getElementById("editPoster").value = movie.posterUrl;
-   document.getElementById("editDesc").value = movie.description;
-
-   let parts = movie.releaseDate.split("/");
-   document.getElementById("editDate").value = `${parts[2]}-${parts[1]}-${parts[0]}`;
-
-   editMovieModal.style.display = "flex";
+   currentPage = 1;
+   renderPaginatedTable();
 }
 
-btnSubmitEdit.addEventListener("click", () => {
-   if (idToEdit === null) return;
-   const index = data.movies.findIndex(m => m.id === idToEdit);
-
-   if (index !== -1) {
-      let dateInput = document.getElementById("editDate").value;
-      let dateParts = dateInput.split("-");
-      let formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-      let newName = document.getElementById("editName").value.trim();
-
-      data.movies[index].title = newName;
-      data.movies[index].titleVi = newName;
-      data.movies[index].genres = document.getElementById("editGenre").value;
-      data.movies[index].duration = Number(document.getElementById("editDuration").value);
-      data.movies[index].releaseDate = formattedDate;
-      data.movies[index].status = Number(document.getElementById("editStatus").value);
-      data.movies[index].posterUrl = document.getElementById("editPoster").value.trim();
-      data.movies[index].description = document.getElementById("editDesc").value.trim();
-      data.movies[index].ticketPrice = Number(document.getElementById("editPrice").value);
-
-      localStorage.setItem("movieData", JSON.stringify(data));
+searchInput.addEventListener("input", executeFilter);
+tabs.forEach(tab => {
+   tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
       executeFilter();
-      closeEditModal();
-      showToast("Thành công", "Đã cập nhật thông tin phim", "success");
-   }
+   });
 });
 
-// ==========================================
-// 7. XÓA PHIM
-// ==========================================
-let idToDelete = null;
-const deleteModal = document.getElementById("overlayClass");
-const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-const cancelBtn = document.getElementById("cancelBtn");
-
-const closeDeleteModal = () => {
-   deleteModal.style.display = "none";
-   idToDelete = null;
-};
-
-cancelBtn.addEventListener("click", closeDeleteModal);
-
-confirmDeleteBtn.addEventListener("click", () => {
-   if (idToDelete !== null) {
-      const index = data.movies.findIndex(m => m.id === idToDelete);
-      if (index !== -1) {
-         data.movies.splice(index, 1);
-         localStorage.setItem("movieData", JSON.stringify(data));
-         executeFilter();
-         showToast("Thành công", "Đã xóa phim khỏi hệ thống", "success");
-      }
-   }
-   closeDeleteModal();
-});
-
-// ==========================================
-// 8. ĐĂNG XUẤT
-// ==========================================
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
    logoutBtn.addEventListener("click", () => {
-      showToast("Thành công", "Đang đăng xuất...");
-      setTimeout(() => {
-         window.location.href = "login.html";
-      }, 1000);
+      showToast("Thành công", "Đang đăng xuất...", "success");
+      setTimeout(() => { window.location.href = "login.html"; }, 1000);
    });
 }
 
-// ==========================================
-// 9. CHẠY LẦN ĐẦU KHI TẢI TRANG
-// ==========================================
-renderMovies();
+let currentPage = 1;
+const itemsPerPage = 5;
+let currentFilteredMovies = [];
+
+const infoSpan = document.querySelector(".pagination span");
+const pagesContainer = document.querySelector(".pages");
+
+const renderPagination = (filteredArray) => {
+   const totalItems = filteredArray.length;
+   const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+   if (currentPage > totalPages) currentPage = totalPages;
+
+   if (totalItems === 0) {
+      if (infoSpan) infoSpan.innerHTML = "Không tìm thấy phim nào";
+      if (pagesContainer) pagesContainer.innerHTML = "";
+      return;
+   }
+
+   let startItem = (currentPage - 1) * itemsPerPage + 1;
+   let endItem = Math.min(currentPage * itemsPerPage, totalItems);
+   if (infoSpan) infoSpan.innerHTML = `Hiển thị ${startItem}-${endItem} trên ${totalItems} phim`;
+
+   const prevHTML = `<button data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
+
+   const numsHTML = Array.from({ length: totalPages }, (_, i) => i + 1)
+      .map(page => `<button class="${page === currentPage ? 'active' : ''}" data-page="${page}">${page}</button>`)
+      .join("");
+
+   const nextHTML = `<button data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
+
+   if (pagesContainer) pagesContainer.innerHTML = prevHTML + numsHTML + nextHTML;
+
+   document.querySelectorAll(".pages button").forEach(btn => {
+      btn.addEventListener("click", () => {
+         const newPage = parseInt(btn.getAttribute("data-page"));
+         changePage(newPage);
+      });
+   });
+};
+
+const renderPaginatedTable = () => {
+   const startIndex = (currentPage - 1) * itemsPerPage;
+   const endIndex = startIndex + itemsPerPage;
+   const paginatedMovies = currentFilteredMovies.slice(startIndex, endIndex);
+
+   renderMovies(paginatedMovies);
+   renderPagination(currentFilteredMovies);
+};
+
+const changePage = (page) => {
+   currentPage = page;
+   renderPaginatedTable();
+};
+
+const setMinDateForInputs = () => {
+   const today = new Date();
+   today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+   const minDateStr = today.toISOString().split('T')[0];
+
+   const addDateInput = document.getElementById("addDate");
+   const editDateInput = document.getElementById("editDate");
+
+   if (addDateInput) addDateInput.setAttribute("min", minDateStr);
+   if (editDateInput) editDateInput.setAttribute("min", minDateStr);
+};
+
+document.addEventListener("DOMContentLoaded", setMinDateForInputs);
+setMinDateForInputs();
+
+currentFilteredMovies = data.movies;
+renderPaginatedTable();
+
+const menuItems = document.querySelectorAll('.sidebar .menu .item');
+const movieSection = document.getElementById('movieSection');
+const ticketSection = document.getElementById('ticketSection');
+
+menuItems[0].addEventListener('click', () => {
+   menuItems[0].classList.add('active');
+   menuItems[1].classList.remove('active');
+   movieSection.style.display = 'block';
+   ticketSection.style.display = 'none';
+});
+
+menuItems[1].addEventListener('click', () => {
+   menuItems[1].classList.add('active');
+   menuItems[0].classList.remove('active');
+   movieSection.style.display = 'none';
+   ticketSection.style.display = 'block';
+   renderTicketsTable();
+});
+
+const renderTicketsTable = () => {
+   const tbody = document.getElementById('ticketTableBody');
+
+   let html = data.tickets.map(t => {
+      let statusClass = "st-green";
+      if (t.statusDisplay === "Chờ xử lý") statusClass = "st-orange";
+      if (t.statusDisplay === "Đã hủy") statusClass = "st-red";
+
+      let seatsHTML = t.seats.map(s => `<span class="seat-tag">${s}</span>`).join('');
+      let dateParts = t.showDate.split("-");
+      let formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+
+      return `
+        <tr>
+            <td class="text-red">${t.ticketCode}</td>
+            <td><b>${t.customerName}</b><br><small>${t.customerPhone}</small></td>
+            <td>${t.movieTitle}</td>
+            <td>${t.showTime}<br><small>${formattedDate}</small></td>
+            <td>${seatsHTML}</td>
+            <td><b>${t.totalAmount.toLocaleString('vi-VN')}đ</b></td>
+            <td><span class="st ${statusClass}">${t.statusDisplay}</span></td>
+            <td class="icon-btns">
+                <i class="fa-solid fa-pen"></i>
+                <i class="fa-solid fa-circle-xmark"></i>
+            </td>
+        </tr>`;
+   }).join('');
+
+   tbody.innerHTML = html;
+};
+
+const addTicketModalElement = document.getElementById('addTicketModal');
+
+document.getElementById('btnAddTicket').addEventListener('click', () => {
+   addTicketModalElement.style.display = 'flex';
+});
+
+const closeTicketModal = () => {
+   addTicketModalElement.style.display = 'none';
+};
+
+document.getElementById('closeTicketModal').addEventListener('click', closeTicketModal);
+document.getElementById('cancelTicketBtn').addEventListener('click', closeTicketModal);

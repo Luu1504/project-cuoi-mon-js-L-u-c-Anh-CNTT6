@@ -5,14 +5,14 @@ if (!data.movies) {
       "movies": [
          {
             "id": 1,
-            "title": "Dune: Part Two",
-            "titleVi": "Dune: Hành Tinh Cát - Phần 2",
+            "title": "Dune",
+            "titleVi": "Dune",
             "genres": "Hành động, Viễn tưởng",
             "duration": 166,
             "releaseDate": "01/03/2024",
             "status": 1,
-            "posterUrl": "/asset/image/Dune_2_VN_poster.jpg",
-            "description": "Tiếp nối phần trước, Paul Atreides hợp nhất với Fremen để trả thù gia tộc Harkonnen và đối mặt với số phận của vũ trụ.",
+            "posterUrl": "/asset/image/wallpapersden.com_dune-digital-movie-art_5120x2880.jpg",
+            "description": `Dune là bản anh hùng ca về Paul Atreides trong cuộc chiến sinh tồn và giành quyền kiểm soát "hương dược" quý hiếm trên hành tinh sa mạc Arrakis khắc nghiệt.`,
             "ticketPrice": 95000
          },
          {
@@ -216,6 +216,7 @@ function showToast(title, message, type = "success") {
    }).showToast();
 }
 
+
 let movieList = document.getElementById("movieList");
 
 function renderAllMovieList() {
@@ -238,8 +239,80 @@ function renderAllMovieList() {
    }).join("");
 
    movieList.innerHTML = showAll;
+
+   let buyButtons = document.querySelectorAll(".btn-buy");
+
+   // 3. Lặp qua từng nút và gắn sự kiện click
+   buyButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+         showToast("Chuyển hướng", "Đang chuyển đến trang đăng nhập...", "success");
+
+         // 4. Dùng setTimeout để đếm ngược 1 giây (1000ms)
+         setTimeout(() => {
+            window.location.href = "login.html";
+         }, 1000);
+      });
+   });
+
+
 }
 
 renderAllMovieList();
 
 
+let trendingTag = document.getElementById("trendingTag");
+
+function renderTrendingTag() {
+   let showTrending = data.movies.find(s => s.status === 1);
+
+   if (showTrending) {
+      trendingTag.innerHTML = `
+          <div class="trending-tag">
+             <span class="dot"></span>
+             <span class="text">Đang thịnh hành</span>
+          </div>
+          <h1>${showTrending.titleVi || showTrending.title}</h1>
+          <p>${showTrending.description}</p>
+          <div class="hero-btns">
+             <button class="btn-red"><i class="fa-solid fa-ticket"></i> Đặt Vé Ngay</button>
+             <button class="btn-outline" onclick="handleWatchTrailer()"><i class="fa-regular fa-circle-play"></i> Xem Trailer</button>
+          </div>
+       `;
+
+      let heroSection = document.getElementById('hero');
+      heroSection.style.backgroundImage = `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url("${showTrending.posterUrl}")`;
+   }
+}
+
+renderTrendingTag();
+
+
+
+
+function handleWatchTrailer() {
+   let trailerOverlay = document.getElementById('trailerOverlay');
+   let trailerVideo = document.getElementById('trailerVideo');
+
+   let showTrending = data.movies.find(s => s.status === 1);
+
+   let trailerUrl = "https://www.youtube.com/embed/n9xhJrPXop4?si=Kkr6IUJNQ8bgZNBK";
+
+   trailerVideo.src = trailerUrl;
+   trailerOverlay.style.display = 'flex';
+}
+
+function closeTrailer() {
+   let trailerOverlay = document.getElementById('trailerOverlay');
+   let trailerVideo = document.getElementById('trailerVideo');
+
+   trailerOverlay.style.display = 'none';
+   trailerVideo.src = "";
+}
+
+
+window.addEventListener('click', function (e) {
+   let trailerOverlay = document.getElementById('trailerOverlay');
+   if (e.target === trailerOverlay) {
+      closeTrailer();
+   }
+});

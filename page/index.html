@@ -6,6 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Rikkei Cinema - Hệ thống rạp chiếu phim</title>
    <link rel="stylesheet" href="/css/index.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
    <header>
       <div class="logo">
          <span><img src="/asset/icon/Container.png" alt=""></span>
-         <span class="brand-name">Rikkei</span><span class="brand-sub"><a>Cinema</a></span>
+         <span class="brand-name">Chi</span><span class="brand-sub"><a>Cinema</a></span>
       </div>
       <nav>
          <a href="/page/index.html">Trang chủ</a>
@@ -23,20 +24,9 @@
       <a href="/page/login.html"><button class="btn-auth">Đăng nhập / Đăng ký</button></a>
    </header>
 
-   <section class="hero">
-      <div class="hero-content">
-         <div class="trending-tag">
-            <span class="dot"></span>
-            <span class="text">Đang thịnh hành</span>
-         </div>
-         <h1>Dune: Hành Tinh Cát</h1>
-         <p>Câu chuyện về cuộc hành trình của Paul Atreides, một chàng trai trẻ tài năng và rực rỡ, sinh ra với số phận
-            vĩ đại vượt quá sự hiểu biết của mình.</p>
-         <div class="hero-btns">
-            <button class="btn-red"><i class="fa-solid fa-ticket"></i> Đặt Vé Ngay</button>
-            <button class="btn-outline"><i class="fa-regular fa-circle-play"></i> Xem Trailer</button>
-         </div>
-      </div>
+   <section id="hero" class="hero">
+      <div id="trendingTag" class="hero-content">
+
    </section>
 
    <main class="container">
@@ -127,17 +117,23 @@
       </footer>
    </main>
 
-   <div class="hero-btns">
-      <button class="btn-red"><i class="fa-solid fa-ticket"></i> Đặt Vé Ngay</button>
-      <button class="btn-outline" onclick="handleWatchTrailer()"><i class="fa-regular fa-circle-play"></i> Xem
-         Trailer</button>
+
+   <script src="/js/index.js"></script>
+
+
+   <div id="trailerOverlay" class="overlay">
+      <div class="trailer-modal">
+         <span class="close-trailer" onclick="closeTrailer()">&times;</span>
+         <iframe id="trailerVideo" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media"
+            allowfullscreen></iframe>
+      </div>
    </div>
 
-
-
-   <script src="/js/index.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
    <script src="/js/index.js"></script>
+
 </body>
+
 
 </html>
